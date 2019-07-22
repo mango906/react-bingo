@@ -9,6 +9,12 @@ class BingoStore {
   @observable
   player = 1;
 
+  numberData = [];
+
+  setNumberData(numberData) {
+    this.numberData = numberData;
+  }
+
   @action.bound
   switchPlayer() {
     switch (this.player) {
@@ -61,23 +67,19 @@ class BingoStore {
     return data;
   }
 
-  arrays() {
-    let data = new Array(5);
-
-    for (let i = 0; i < data.length; i++) {
-      data[i] = new Array(5);
-      for (let j = 0; j < data[i].length; j++) {
-        data[i][j] = {
-          isChecked: false,
-          num: this.randoms()
-        };
-      }
-    }
-    return data;
+  randoms() {
+    return this.numberData[0];
   }
 
-  randoms() {
-    return Math.floor(Math.random() * 25);
+  shuffle() {
+    let numberData = [];
+    for (let i = 1; i <= 25; i++) numberData.push(i); // numberData initialize
+
+    numberData.sort(() => {
+      return 0.5 - Math.random();
+    });
+
+    this.setNumberData(numberData);
   }
 
   findIdx(array, num) {
@@ -93,48 +95,21 @@ class BingoStore {
       });
     });
     return idx;
-
-    // let idx;
-    // switch (player) {
-    //   case 1:
-    //     this.array1.forEach((data, i) => {
-    //       data.forEach((d, j) => {
-    //         if (d.num == num) {
-    //           idx = {
-    //             row: i,
-    //             column: j
-    //           };
-    //         }
-    //       });
-    //     });
-    //     return idx;
-    //   case 2:
-    //     this.array2.forEach((data, i) => {
-    //       data.forEach((d, j) => {
-    //         if (d.num == num) {
-    //           idx = {
-    //             row: i,
-    //             column: j
-    //           };
-    //         }
-    //       });
-    //     });
-    //     return idx;
-    //   default:
-    //     break;
-    // }
   }
 
   numberSet(board, boardIdx) {
     let array = observable.array(board);
+    this.shuffle();
     for (let i = 0; i < array.length; i++) {
       for (let j = 0; j < array[i].length; j++) {
         array[i][j] = {
           num: this.randoms(),
           isChecked: false
         };
+        this.numberData.splice(0, 1);
       }
     }
+
     if (boardIdx === 1) {
       this.array1 = array;
     } else {
