@@ -24,25 +24,18 @@ class BingoStore {
   }
 
   @action.bound
-  choose(player, num) {
-    let array = [];
-    let idx = -1;
-    switch (player) {
-      case 1:
-        array = observable.array(this.array1);
-        idx = this.findIdx(player, num);
-        array[idx.row][idx.column].isChecked = true;
-        this.array1 = array;
-        break;
-      case 2:
-        array = observable.array(this.array2);
-        idx = this.findIdx(player, num);
-        array[idx.row][idx.column].isChecked = true;
-        this.array2 = array;
-        break;
-      default:
-        break;
-    }
+  choose(num) {
+    let idx = null;
+    let array1 = observable.array(this.array1);
+    idx = this.findIdx(1, num);
+    if (!idx) return;
+    array1[idx.row][idx.column].isChecked = true;
+    this.array1 = array1;
+    let array2 = observable.array(this.array2);
+    idx = this.findIdx(2, num);
+    if (!idx) return;
+    array2[idx.row][idx.column].isChecked = true;
+    this.array2 = array2;
   }
 
   @action.bound

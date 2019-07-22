@@ -16,7 +16,7 @@ class BingoContainer extends React.Component {
       alert('Not your turn!!!');
       return;
     }
-    bingo.choose(bingo.player, e.target.innerHTML);
+    bingo.choose(e.target.innerHTML);
     bingo.switchPlayer();
   };
 
