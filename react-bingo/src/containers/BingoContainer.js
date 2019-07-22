@@ -40,7 +40,7 @@ class BingoContainer extends React.Component {
 
     return (
       <div className="bingo-container">
-        <button onClick={this.handleStart}>게임 시작</button>
+        <button onClick={this.handleStart}>{bingo.isStarted ? '게임 재시작' : '게임 시작'}</button>
         <div className="bingo-container-board">
           <BingoBoard player={1} data={bingo.array1} handleClick={this.handleClick} />
           <BingoBoard player={2} data={bingo.array2} handleClick={this.handleClick} />
