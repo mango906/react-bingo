@@ -119,6 +119,18 @@ class BingoStore {
     let msg = player === 1 ? 'player1 승리!' : 'player2 승리!';
     return msg;
   }
+
+  @action.bound
+  reset() {
+    console.log('reset');
+    this.array1 = library.initialize();
+    this.array2 = library.initialize();
+
+    this.bingo1 = [];
+    this.bingo2 = [];
+
+    this.isStarted = false;
+  }
 }
 
 export default BingoStore;
