@@ -59,8 +59,7 @@ const rowCheck = (board, num) => {
       return;
     }
   });
-  if (isBingo) {
-  }
+
   return isBingo;
 };
 
@@ -70,12 +69,19 @@ const diagonalCheck = (board, num) => {
 
   if (location.row !== location.column) return;
 
-  for (let i = 0; i < board.length; i++) {
+  board.forEach((el, i) => {
     if (board[i][i].isChecked === false) {
       isBingo = false;
       return;
     }
-  }
+  });
+
+  // for (let i = 0; i < board.length; i++) {
+  //   if (board[i][i].isChecked === false) {
+  //     isBingo = false;
+  //     return;
+  //   }
+  // }
   return isBingo;
 };
 
