@@ -32,6 +32,12 @@ class BingoContainer extends React.Component {
   render() {
     const { bingo } = this.props;
 
+    const bingos =
+      bingo.bingos &&
+      bingo.bingos.map(b => {
+        return <div>{b}</div>;
+      });
+
     return (
       <div className="bingo-container">
         <button onClick={this.handleStart}>게임 시작</button>
@@ -39,6 +45,7 @@ class BingoContainer extends React.Component {
           <BingoBoard player={1} data={bingo.array1} handleClick={this.handleClick} />
           <BingoBoard player={2} data={bingo.array2} handleClick={this.handleClick} />
         </div>
+        {bingos}
       </div>
     );
   }

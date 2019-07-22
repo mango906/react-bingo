@@ -6,6 +6,8 @@ class BingoStore {
   @observable
   array2 = this.initialize();
 
+  @observable bingos = [];
+
   @observable
   player = 1;
 
@@ -47,14 +49,7 @@ class BingoStore {
       array2[idx.row][idx.column].isChecked = true;
       this.array2 = array2;
     }
-
-    console.log('column array1', this.columnCheck(this.array1, num));
-
-    console.log('column array2', this.columnCheck(this.array2, num));
-
-    console.log('row array1', this.rowCheck(this.array1, num));
-
-    console.log('row array2', this.rowCheck(this.array2, num));
+    this.bingoCheck(num);
   }
 
   @action.bound
@@ -138,6 +133,7 @@ class BingoStore {
         return;
       }
     });
+
     return isBingo;
   };
 
@@ -150,10 +146,40 @@ class BingoStore {
         return;
       }
     });
+    if (isBingo) {
+    }
     return isBingo;
   };
 
-  diagonalCheck = () => {};
+  diagonalCheck = (board, num) => {
+    const location = this.findIdx(board, num);
+    let isBingo = true;
+
+    if (location.row !== location.column) return;
+
+    for (let i = 0; i < board.length; i++) {
+      if (board[i][i].isChecked === false) {
+        isBingo = false;
+        return;
+      }
+    }
+    return isBingo;
+  };
+
+  @action.bound
+  bingoCheck = num => {
+    if (this.columnCheck(this.array1, num)) this.bingos.push('123');
+
+    if (this.columnCheck(this.array2, num)) this.bingos.push('123');
+
+    if (this.rowCheck(this.array1, num)) this.bingos.push('123');
+
+    if (this.rowCheck(this.array2, num)) this.bingos.push('123');
+
+    if (this.diagonalCheck(this.array1, num)) this.bingos.push('123');
+
+    if (this.diagonalCheck(this.array2, num)) this.bingos.push('123');
+  };
 }
 
 export default BingoStore;
