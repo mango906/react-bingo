@@ -1,14 +1,25 @@
 import React from 'react';
 import './BingoBoard.scss';
+import { toJS } from 'mobx';
 
-const BingoBoard = ({ data, player, handleClick }) => {
+const BingoBoard = ({ data, player, handleClick, bingos }) => {
+  const bingoList = bingos.map(bingo => {
+    return (
+      <div className="bingo-list">
+        {bingo.map(b => {
+          return <div>{b.num}</div>;
+        })}
+      </div>
+    );
+  });
+
   return (
     <div className="bingo-board">
-      {data.map((d, i) => {
-        return (
-          <div key={i}>
-            {d.map((d, i) => {
-              return (
+      <div className="bingo-board-items">
+        {data.map((d, i) => {
+          return (
+            <div key={i}>
+              {d.map((d, i) => (
                 <div
                   className={`bingo-board-item ${d.isChecked && 'check'}`}
                   key={i}
@@ -18,11 +29,12 @@ const BingoBoard = ({ data, player, handleClick }) => {
                 >
                   {d.num}
                 </div>
-              );
-            })}
-          </div>
-        );
-      })}
+              ))}
+            </div>
+          );
+        })}
+      </div>
+      {bingoList}
     </div>
   );
 };

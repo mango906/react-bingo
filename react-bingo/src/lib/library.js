@@ -47,7 +47,7 @@ const columnCheck = (board, num) => {
     }
   });
 
-  return isBingo;
+  return isBingo ? board[rowNum] : false;
 };
 
 const rowCheck = (board, num) => {

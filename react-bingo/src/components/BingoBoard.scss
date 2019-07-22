@@ -1,5 +1,7 @@
 .bingo-board {
-  display: flex;
+  &-items {
+    display: flex;
+  }
 
   &-item {
     text-align: center;
@@ -13,4 +15,14 @@
 .check {
   background: #000;
   color: #fff;
+}
+
+.bingo-list {
+  display: flex;
+  justify-content: space-around;
+
+  & > div {
+    width: 100%;
+    text-align: center;
+  }
 }

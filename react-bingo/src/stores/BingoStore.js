@@ -7,7 +7,8 @@ class BingoStore {
   @observable
   array2 = library.initialize();
 
-  @observable bingos = [];
+  @observable bingo1 = [];
+  @observable bingo2 = [];
 
   @observable
   player = 1;
@@ -88,17 +89,19 @@ class BingoStore {
 
   @action.bound
   bingoCheck = num => {
-    if (library.columnCheck(this.array1, num)) this.bingos.push('123');
+    if (library.columnCheck(this.array1, num))
+      this.bingo1.push(library.columnCheck(this.array1, num));
 
-    if (library.columnCheck(this.array2, num)) this.bingos.push('123');
+    if (library.columnCheck(this.array2, num))
+      this.bingo2.push(library.columnCheck(this.array2, num));
 
-    if (library.rowCheck(this.array1, num)) this.bingos.push('123');
+    if (library.rowCheck(this.array1, num)) this.bingo1.push('123');
 
-    if (library.rowCheck(this.array2, num)) this.bingos.push('123');
+    if (library.rowCheck(this.array2, num)) this.bingo2.push('123');
 
-    if (library.diagonalCheck(this.array1, num)) this.bingos.push('123');
+    if (library.diagonalCheck(this.array1, num)) this.bingo1.push('123');
 
-    if (library.diagonalCheck(this.array2, num)) this.bingos.push('123');
+    if (library.diagonalCheck(this.array2, num)) this.bingo2.push('123');
   };
 }
 
