@@ -24,10 +24,9 @@ const shuffle = () => {
 
 const findPos = (array, num) => {
   let pos = null;
-  array.forEach((data, i) => {
-    data.forEach((d, j) => {
-      console.log(d.num, num);
-      if (d.num === num) {
+  array.forEach((row, i) => {
+    row.forEach((column, j) => {
+      if (column.num === num) {
         pos = {
           row: i,
           column: j
@@ -39,40 +38,41 @@ const findPos = (array, num) => {
 };
 
 const columnCheck = (board, num) => {
-  const rowNum = findPos(board, num).row;
+  const rowPos = findPos(board, num).row;
   let isBingo = true;
-  board[rowNum].forEach(el => {
+
+  board[rowPos].forEach(el => {
     if (el.isChecked === false) {
       isBingo = false;
       return;
     }
   });
 
-  return isBingo ? board[rowNum] : false;
+  return isBingo ? board[rowPos] : false;
 };
 
 const rowCheck = (board, num) => {
-  const columnNum = findPos(board, num).column;
+  const columnPos = findPos(board, num).column;
   let isBingo = true;
   let rowData = [];
 
   board.forEach(el => {
-    if (el[columnNum].isChecked === false) {
+    if (el[columnPos].isChecked === false) {
       isBingo = false;
       return;
     }
-    rowData.push(el[columnNum]);
+    rowData.push(el[columnPos]);
   });
 
   return isBingo ? rowData : false;
 };
-const leftDiagonalCheck = (board, num) => {
-  const location = findPos(board, num);
 
+const leftDiagonalCheck = (board, num) => {
+  const pos = findPos(board, num);
   let isBingo = true;
   let diagonalData = [];
 
-  if (location.row + location.column !== board.length - 1) return;
+  if (pos.row + pos.column !== board.length - 1) return;
 
   board.forEach((el, i) => {
     el.forEach((e, j) => {
@@ -85,16 +85,16 @@ const leftDiagonalCheck = (board, num) => {
       diagonalData.push(board[i][j]);
     });
   });
+
   return isBingo ? diagonalData : false;
 };
 
 const rightDiagonalCheck = (board, num) => {
-  const location = findPos(board, num);
-
-  if (location.row !== location.column) return;
-
+  const pos = findPos(board, num);
   let isBingo = true;
   let diagonalData = [];
+
+  if (pos.row !== pos.column) return;
 
   board.forEach((el, i) => {
     el.forEach((e, j) => {
