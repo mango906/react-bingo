@@ -27,14 +27,14 @@ class BingoStore {
   choose(num) {
     let idx = null;
     let array1 = observable.array(this.array1);
-    idx = this.findIdx(1, num);
+    idx = this.findIdx(this.array1, num);
     if (idx) {
       array1[idx.row][idx.column].isChecked = true;
       this.array1 = array1;
     }
 
     let array2 = observable.array(this.array2);
-    idx = this.findIdx(2, num);
+    idx = this.findIdx(this.array2, num);
     if (idx) {
       array2[idx.row][idx.column].isChecked = true;
       this.array2 = array2;
@@ -80,36 +80,49 @@ class BingoStore {
     return Math.floor(Math.random() * 25);
   }
 
-  findIdx(player, num) {
-    let idx;
-    switch (player) {
-      case 1:
-        this.array1.forEach((data, i) => {
-          data.forEach((d, j) => {
-            if (d.num == num) {
-              idx = {
-                row: i,
-                column: j
-              };
-            }
-          });
-        });
-        return idx;
-      case 2:
-        this.array2.forEach((data, i) => {
-          data.forEach((d, j) => {
-            if (d.num == num) {
-              idx = {
-                row: i,
-                column: j
-              };
-            }
-          });
-        });
-        return idx;
-      default:
-        break;
-    }
+  findIdx(array, num) {
+    let idx = null;
+    array.forEach((data, i) => {
+      data.forEach((d, j) => {
+        if (d.num == num) {
+          idx = {
+            row: i,
+            column: j
+          };
+        }
+      });
+    });
+    return idx;
+
+    // let idx;
+    // switch (player) {
+    //   case 1:
+    //     this.array1.forEach((data, i) => {
+    //       data.forEach((d, j) => {
+    //         if (d.num == num) {
+    //           idx = {
+    //             row: i,
+    //             column: j
+    //           };
+    //         }
+    //       });
+    //     });
+    //     return idx;
+    //   case 2:
+    //     this.array2.forEach((data, i) => {
+    //       data.forEach((d, j) => {
+    //         if (d.num == num) {
+    //           idx = {
+    //             row: i,
+    //             column: j
+    //           };
+    //         }
+    //       });
+    //     });
+    //     return idx;
+    //   default:
+    //     break;
+    // }
   }
 
   numberSet(board, boardIdx) {
