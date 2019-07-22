@@ -70,16 +70,11 @@ const leftDiagonalCheck = (board, num) => {
   if (pos.row + pos.column !== board.length - 1) return;
 
   board.forEach((el, i) => {
-    el.forEach((e, j) => {
-      if (i + j !== board.length - 1) return;
-
-      if (!board[i][j].isChecked) {
-        isBingo = false;
-        return;
-      }
-
-      diagonalData.push(board[i][j]);
-    });
+    if (!board[i][board.length - 1 - i].isChecked) {
+      isBingo = false;
+      return;
+    }
+    diagonalData.push(board[i][board.length - 1 - i]);
   });
 
   return isBingo ? diagonalData : false;
@@ -93,15 +88,11 @@ const rightDiagonalCheck = (board, num) => {
   if (pos.row !== pos.column) return;
 
   board.forEach((el, i) => {
-    el.forEach((e, j) => {
-      if (i !== j) return;
-
-      if (!board[i][j].isChecked) {
-        isBingo = false;
-        return;
-      }
-      diagonalData.push(board[i][j]);
-    });
+    if (!board[i][i].isChecked) {
+      isBingo = false;
+      return;
+    }
+    diagonalData.push(board[i][i]);
   });
 
   return isBingo ? diagonalData : false;
