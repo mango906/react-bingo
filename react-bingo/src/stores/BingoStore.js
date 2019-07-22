@@ -32,7 +32,7 @@ class BingoStore {
   }
 
   numberSet(board, player) {
-    let array = observable.array(board);
+    let array = observable.array(board); // array depth = 2 -> not rerender
     this.setNumberData(library.shuffle());
     for (let i = 0; i < array.length; i++) {
       for (let j = 0; j < array[i].length; j++) {
@@ -40,7 +40,7 @@ class BingoStore {
           num: this.randoms(),
           isChecked: false
         };
-        this.numberData.splice(0, 1);
+        this.numberData.splice(0, 1); // random value
       }
     }
 
@@ -69,6 +69,7 @@ class BingoStore {
       array2[pos.row][pos.column].isChecked = true;
       this.array2 = array2;
     }
+
     this.bingoCheck(num);
   }
 

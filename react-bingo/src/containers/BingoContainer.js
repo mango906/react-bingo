@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 
-import BingoBoard from './../components/BingoBoard';
+import BingoBoard from '../components/BingoBoard';
 
 import './BingoContainer.scss';
 
@@ -36,8 +36,6 @@ class BingoContainer extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { bingo } = this.props;
-
-    let msg = '';
 
     if (bingo.getMsg) {
       alert(bingo.getMsg);

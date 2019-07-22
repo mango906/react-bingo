@@ -1,6 +1,8 @@
 import React from 'react';
 import './BingoBoard.scss';
 
+import BingoBoardItem from './BingoBoardItem';
+
 const BingoBoard = ({ data, player, handleClick, bingos, handleEnd }) => {
   if (bingos.length >= data.length) {
     handleEnd(player);
@@ -23,15 +25,16 @@ const BingoBoard = ({ data, player, handleClick, bingos, handleEnd }) => {
           return (
             <div key={i}>
               {d.map((d, i) => (
-                <div
-                  className={`bingo-board-item ${d && d.isChecked && 'check'}`}
-                  key={i}
-                  onClick={e => {
-                    d && !d.isChecked && handleClick(e, player);
-                  }}
-                >
-                  {d && d.num}
-                </div>
+                <BingoBoardItem key={i} data={d} player={player} handleClick={handleClick} />
+                // <div
+                //   className={`bingo-board-item ${d && d.isChecked && 'check'}`}
+                //   key={i}
+                //   onClick={e => {
+                //     d && !d.isChecked && handleClick(e, player);
+                //   }}
+                // >
+                //   {d && d.num}
+                // </div>
               ))}
             </div>
           );
