@@ -31,9 +31,19 @@ class BingoContainer extends React.Component {
 
   handleEnd = player => {
     const { bingo } = this.props;
-    alert(bingo.gameEnd(player));
-    bingo.reset();
+    bingo.gameEnd(player);
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    const { bingo } = this.props;
+    let msg = '';
+
+    if (bingo.winnerCount) {
+      msg = bingo.winnerCount === 1 ? `${bingo.getWinner}P가 빙고를 완성했습니다` : '무승부입니다.';
+      alert(msg);
+      bingo.reset();
+    }
+  }
 
   render() {
     const { bingo } = this.props;

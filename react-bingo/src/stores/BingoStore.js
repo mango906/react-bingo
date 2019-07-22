@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import library from '../lib/library';
 
 class BingoStore {
@@ -112,8 +112,9 @@ class BingoStore {
 
   @action.bound
   gameEnd(player) {
-    let msg = player === 1 ? 'player1 승리!' : 'player2 승리!';
-    return msg;
+    this.winner.push(player);
+    // let msg = player === 1 ? 'player1 승리!' : 'player2 승리!';
+    // return msg;
   }
 
   @action.bound
@@ -124,7 +125,19 @@ class BingoStore {
     this.bingo1 = [];
     this.bingo2 = [];
 
+    this.winner = [];
+
     this.isStarted = false;
+  }
+
+  @computed
+  get winnerCount() {
+    return this.winner.length;
+  }
+
+  @computed
+  get getWinner() {
+    return this.winner;
   }
 }
 
