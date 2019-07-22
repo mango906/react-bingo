@@ -1,10 +1,11 @@
 import { observable, action, computed, toJS } from 'mobx';
+import library from '../lib/library';
 
 class BingoStore {
   @observable
-  array1 = this.initialize();
+  array1 = library.initialize();
   @observable
-  array2 = this.initialize();
+  array2 = library.initialize();
 
   @observable bingos = [];
 
@@ -17,6 +18,30 @@ class BingoStore {
 
   setNumberData(numberData) {
     this.numberData = numberData;
+  }
+
+  randoms() {
+    return this.numberData[0];
+  }
+
+  numberSet(board, boardIdx) {
+    let array = observable.array(board);
+    this.setNumberData(library.shuffle());
+    for (let i = 0; i < array.length; i++) {
+      for (let j = 0; j < array[i].length; j++) {
+        array[i][j] = {
+          num: this.randoms(),
+          isChecked: false
+        };
+        this.numberData.splice(0, 1);
+      }
+    }
+
+    if (boardIdx === 1) {
+      this.array1 = array;
+    } else {
+      this.array2 = array;
+    }
   }
 
   @action.bound
@@ -37,14 +62,14 @@ class BingoStore {
   choose(num) {
     let idx = null;
     let array1 = observable.array(this.array1);
-    idx = this.findIdx(this.array1, num);
+    idx = library.findIdx(this.array1, num);
     if (idx) {
       array1[idx.row][idx.column].isChecked = true;
       this.array1 = array1;
     }
 
     let array2 = observable.array(this.array2);
-    idx = this.findIdx(this.array2, num);
+    idx = library.findIdx(this.array2, num);
     if (idx) {
       array2[idx.row][idx.column].isChecked = true;
       this.array2 = array2;
@@ -61,124 +86,19 @@ class BingoStore {
     this.isStarted = true;
   }
 
-  initialize() {
-    let data = new Array(5);
-    for (let i = 0; i < data.length; i++) {
-      data[i] = new Array(5);
-      for (let j = 0; j < data[i].length; j++) {
-        data[i][j] = {
-          isChecked: false
-        };
-      }
-    }
-    return data;
-  }
-
-  randoms() {
-    return this.numberData[0];
-  }
-
-  shuffle() {
-    let numberData = [];
-    for (let i = 1; i <= 25; i++) numberData.push(i); // numberData initialize
-
-    numberData.sort(() => {
-      return 0.5 - Math.random();
-    });
-
-    this.setNumberData(numberData);
-  }
-
-  findIdx(array, num) {
-    let idx = null;
-    array.forEach((data, i) => {
-      data.forEach((d, j) => {
-        if (d.num == num) {
-          idx = {
-            row: i,
-            column: j
-          };
-        }
-      });
-    });
-    return idx;
-  }
-
-  numberSet(board, boardIdx) {
-    let array = observable.array(board);
-    this.shuffle();
-    for (let i = 0; i < array.length; i++) {
-      for (let j = 0; j < array[i].length; j++) {
-        array[i][j] = {
-          num: this.randoms(),
-          isChecked: false
-        };
-        this.numberData.splice(0, 1);
-      }
-    }
-
-    if (boardIdx === 1) {
-      this.array1 = array;
-    } else {
-      this.array2 = array;
-    }
-  }
-
-  columnCheck = (board, num) => {
-    const rowNum = this.findIdx(board, num).row;
-    let isBingo = true;
-    board[rowNum].forEach(el => {
-      if (el.isChecked === false) {
-        isBingo = false;
-        return;
-      }
-    });
-
-    return isBingo;
-  };
-
-  rowCheck = (board, num) => {
-    const columnNum = this.findIdx(board, num).column;
-    let isBingo = true;
-    board.forEach(el => {
-      if (el[columnNum].isChecked === false) {
-        isBingo = false;
-        return;
-      }
-    });
-    if (isBingo) {
-    }
-    return isBingo;
-  };
-
-  diagonalCheck = (board, num) => {
-    const location = this.findIdx(board, num);
-    let isBingo = true;
-
-    if (location.row !== location.column) return;
-
-    for (let i = 0; i < board.length; i++) {
-      if (board[i][i].isChecked === false) {
-        isBingo = false;
-        return;
-      }
-    }
-    return isBingo;
-  };
-
   @action.bound
   bingoCheck = num => {
-    if (this.columnCheck(this.array1, num)) this.bingos.push('123');
+    if (library.columnCheck(this.array1, num)) this.bingos.push('123');
 
-    if (this.columnCheck(this.array2, num)) this.bingos.push('123');
+    if (library.columnCheck(this.array2, num)) this.bingos.push('123');
 
-    if (this.rowCheck(this.array1, num)) this.bingos.push('123');
+    if (library.rowCheck(this.array1, num)) this.bingos.push('123');
 
-    if (this.rowCheck(this.array2, num)) this.bingos.push('123');
+    if (library.rowCheck(this.array2, num)) this.bingos.push('123');
 
-    if (this.diagonalCheck(this.array1, num)) this.bingos.push('123');
+    if (library.diagonalCheck(this.array1, num)) this.bingos.push('123');
 
-    if (this.diagonalCheck(this.array2, num)) this.bingos.push('123');
+    if (library.diagonalCheck(this.array2, num)) this.bingos.push('123');
   };
 }
 
