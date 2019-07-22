@@ -1,6 +1,5 @@
 import React from 'react';
 import './BingoBoard.scss';
-import { toJS } from 'mobx';
 
 const BingoBoard = ({ data, player, handleClick, bingos, handleEnd }) => {
   if (bingos.length >= data.length) {
@@ -10,9 +9,9 @@ const BingoBoard = ({ data, player, handleClick, bingos, handleEnd }) => {
   const bingoList = bingos.map(bingo => {
     return (
       <div className="bingo-list">
-        {bingo.map(b => {
-          return <div>{b.num}</div>;
-        })}
+        {bingo.map(b => (
+          <div>{b.num}</div>
+        ))}
       </div>
     );
   });

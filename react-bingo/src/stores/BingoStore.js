@@ -7,12 +7,15 @@ class BingoStore {
   @observable
   array2 = library.initialize();
 
-  @observable bingo1 = [];
-  @observable bingo2 = [];
+  @observable
+  bingo1 = [];
+  @observable
+  bingo2 = [];
 
   @observable
   player = 1;
 
+  @observable
   isStarted = false;
 
   numberData = [];
@@ -25,7 +28,7 @@ class BingoStore {
     return this.numberData[0];
   }
 
-  numberSet(board, boardIdx) {
+  numberSet(board, player) {
     let array = observable.array(board);
     this.setNumberData(library.shuffle());
     for (let i = 0; i < array.length; i++) {
@@ -38,41 +41,29 @@ class BingoStore {
       }
     }
 
-    if (boardIdx === 1) {
-      this.array1 = array;
-    } else {
-      this.array2 = array;
-    }
+    player === 1 ? (this.array1 = array) : (this.array2 = array);
   }
 
   @action.bound
   switchPlayer() {
-    switch (this.player) {
-      case 1:
-        this.player = 2;
-        break;
-      case 2:
-        this.player = 1;
-        break;
-      default:
-        break;
-    }
+    this.player = this.player === 1 ? 2 : 1;
   }
 
   @action.bound
   choose(num) {
-    let idx = null;
+    let pos = null;
+
     let array1 = observable.array(this.array1);
-    idx = library.findIdx(this.array1, num);
-    if (idx) {
-      array1[idx.row][idx.column].isChecked = true;
+    pos = library.findPos(this.array1, num);
+    if (pos) {
+      array1[pos.row][pos.column].isChecked = true;
       this.array1 = array1;
     }
 
     let array2 = observable.array(this.array2);
-    idx = library.findIdx(this.array2, num);
-    if (idx) {
-      array2[idx.row][idx.column].isChecked = true;
+    pos = library.findPos(this.array2, num);
+    if (pos) {
+      array2[pos.row][pos.column].isChecked = true;
       this.array2 = array2;
     }
     this.bingoCheck(num);
@@ -122,7 +113,6 @@ class BingoStore {
 
   @action.bound
   reset() {
-    console.log('reset');
     this.array1 = library.initialize();
     this.array2 = library.initialize();
 

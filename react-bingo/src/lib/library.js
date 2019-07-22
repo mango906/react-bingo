@@ -1,5 +1,3 @@
-import { toJS } from 'mobx';
-
 const initialize = () => {
   let data = new Array(5);
   for (let i = 0; i < data.length; i++) {
@@ -24,23 +22,24 @@ const shuffle = () => {
   return numberData;
 };
 
-const findIdx = (array, num) => {
-  let idx = null;
+const findPos = (array, num) => {
+  let pos = null;
   array.forEach((data, i) => {
     data.forEach((d, j) => {
-      if (d.num == num) {
-        idx = {
+      console.log(d.num, num);
+      if (d.num === num) {
+        pos = {
           row: i,
           column: j
         };
       }
     });
   });
-  return idx;
+  return pos;
 };
 
 const columnCheck = (board, num) => {
-  const rowNum = findIdx(board, num).row;
+  const rowNum = findPos(board, num).row;
   let isBingo = true;
   board[rowNum].forEach(el => {
     if (el.isChecked === false) {
@@ -53,7 +52,7 @@ const columnCheck = (board, num) => {
 };
 
 const rowCheck = (board, num) => {
-  const columnNum = findIdx(board, num).column;
+  const columnNum = findPos(board, num).column;
   let isBingo = true;
   let rowData = [];
 
@@ -68,7 +67,7 @@ const rowCheck = (board, num) => {
   return isBingo ? rowData : false;
 };
 const leftDiagonalCheck = (board, num) => {
-  const location = findIdx(board, num);
+  const location = findPos(board, num);
 
   let isBingo = true;
   let diagonalData = [];
@@ -90,7 +89,7 @@ const leftDiagonalCheck = (board, num) => {
 };
 
 const rightDiagonalCheck = (board, num) => {
-  const location = findIdx(board, num);
+  const location = findPos(board, num);
 
   if (location.row !== location.column) return;
 
@@ -115,7 +114,7 @@ const rightDiagonalCheck = (board, num) => {
 export default {
   initialize: initialize,
   shuffle: shuffle,
-  findIdx: findIdx,
+  findPos: findPos,
   columnCheck: columnCheck,
   rowCheck: rowCheck,
   leftDiagonalCheck: leftDiagonalCheck,

@@ -8,10 +8,9 @@ import './BingoContainer.scss';
 @inject('bingo')
 @observer
 class BingoContainer extends React.Component {
-  componentDidMount() {}
-
   handleClick = (e, player) => {
     const { bingo } = this.props;
+
     if (!bingo.isStarted) {
       return;
     }
@@ -20,7 +19,8 @@ class BingoContainer extends React.Component {
       alert('잘못된 차레입니다');
       return;
     }
-    bingo.choose(e.target.innerHTML);
+
+    bingo.choose(parseInt(e.target.innerHTML));
     bingo.switchPlayer();
   };
 
