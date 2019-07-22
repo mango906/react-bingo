@@ -84,6 +84,8 @@ class BingoStore {
 
     this.numberSet(this.array2, 2);
 
+    this.player = 1;
+
     this.isStarted = true;
   }
 
