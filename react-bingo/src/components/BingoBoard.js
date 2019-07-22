@@ -3,7 +3,7 @@ import './BingoBoard.scss';
 import { toJS } from 'mobx';
 
 const BingoBoard = ({ data, player, handleClick, bingos, handleEnd }) => {
-  if (bingos.length === 5) {
+  if (bingos.length >= data.length) {
     handleEnd(player);
   }
 
