@@ -1,6 +1,33 @@
 import { observable, action, computed } from 'mobx';
 
 class BingoStore {
+  @observable
+  array1 = this.arrays();
+  @observable
+  array2 = this.arrays();
+
+  @observable
+  player = 1;
+
+  @action.bound
+  switchPlayer() {
+    switch (this.player) {
+      case 1:
+        this.player = 2;
+        break;
+      case 2:
+        this.player = 1;
+        break;
+      default:
+        this.player = 1; // Default Player
+    }
+  }
+
+  @action.bound
+  choose(player, num) {
+    console.log(player);
+  }
+
   arrays() {
     let data = new Array(5);
 
@@ -18,6 +45,18 @@ class BingoStore {
 
   randoms() {
     return Math.floor(Math.random() * 25);
+  }
+
+  findIdx(player, num) {
+    let idx;
+    this.array1.forEach((data, i) => {
+      data.forEach((d, j) => {
+        if (d.num == num) {
+          idx = [i, j];
+        }
+      });
+    });
+    return idx;
   }
 }
 

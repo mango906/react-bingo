@@ -10,13 +10,20 @@ import './BingoContainer.scss';
 class BingoContainer extends React.Component {
   componentDidMount() {}
 
+  handleClick = e => {
+    const { bingo } = this.props;
+    bingo.choose(bingo.player, e.target.innerHTML);
+    bingo.switchPlayer();
+  };
+
   render() {
     const { bingo } = this.props;
+
     return (
       <div className="bingo-container">
         <div className="bingo-container-board">
-          <BingoBoard data={bingo.arrays()} />
-          <BingoBoard data={bingo.arrays()} />
+          <BingoBoard data={bingo.array1} handleClick={this.handleClick} />
+          <BingoBoard data={bingo.array2} handleClick={this.handleClick} />
         </div>
       </div>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import './BingoBoard.scss';
 
-const BingoBoard = ({ data }) => {
+const BingoBoard = ({ data, handleClick }) => {
   console.log(data);
   return (
     <div className="bingo-board">
@@ -10,7 +10,11 @@ const BingoBoard = ({ data }) => {
           <div key={i}>
             {d.map((d, i) => {
               return (
-                <div key={i} className="bingo-board-item">
+                <div
+                  className={`bingo-board-item ${data.isChecked && 'check'}`}
+                  key={i}
+                  onClick={handleClick}
+                >
                   {d.num}
                 </div>
               );
