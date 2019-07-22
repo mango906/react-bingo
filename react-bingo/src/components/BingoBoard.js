@@ -6,11 +6,11 @@ const BingoBoard = ({ data, player, handleClick, bingos, handleEnd }) => {
     handleEnd(player);
   }
 
-  const bingoList = bingos.map(bingo => {
+  const bingoList = bingos.map((bingo, i) => {
     return (
-      <div className="bingo-list">
-        {bingo.map(b => (
-          <div>{b.num}</div>
+      <div className="bingo-list" key={i}>
+        {bingo.map((b, i) => (
+          <div key={i}>{b.num}</div>
         ))}
       </div>
     );
