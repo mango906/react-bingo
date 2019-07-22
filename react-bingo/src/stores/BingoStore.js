@@ -28,14 +28,17 @@ class BingoStore {
     let idx = null;
     let array1 = observable.array(this.array1);
     idx = this.findIdx(1, num);
-    if (!idx) return;
-    array1[idx.row][idx.column].isChecked = true;
-    this.array1 = array1;
+    if (idx) {
+      array1[idx.row][idx.column].isChecked = true;
+      this.array1 = array1;
+    }
+
     let array2 = observable.array(this.array2);
     idx = this.findIdx(2, num);
-    if (!idx) return;
-    array2[idx.row][idx.column].isChecked = true;
-    this.array2 = array2;
+    if (idx) {
+      array2[idx.row][idx.column].isChecked = true;
+      this.array2 = array2;
+    }
   }
 
   @action.bound
