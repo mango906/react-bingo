@@ -36,11 +36,11 @@ class BingoContainer extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { bingo } = this.props;
+
     let msg = '';
 
-    if (bingo.winnerCount) {
-      msg = bingo.winnerCount === 1 ? `${bingo.getWinner}P가 빙고를 완성했습니다` : '무승부입니다.';
-      alert(msg);
+    if (bingo.getMsg) {
+      alert(bingo.getMsg);
       bingo.reset();
     }
   }
@@ -50,7 +50,9 @@ class BingoContainer extends React.Component {
 
     return (
       <div className="bingo-container">
-        <button onClick={this.handleStart}>{bingo.isStarted ? '게임 재시작' : '게임 시작'}</button>
+        <button className="startBtn" onClick={this.handleStart}>
+          {bingo.isStarted ? '게임 재시작' : '게임 시작'}
+        </button>
         <div className="bingo-container-board">
           <BingoBoard
             player={1}

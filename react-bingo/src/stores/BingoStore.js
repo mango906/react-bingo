@@ -113,8 +113,6 @@ class BingoStore {
   @action.bound
   gameEnd(player) {
     this.winner.push(player);
-    // let msg = player === 1 ? 'player1 승리!' : 'player2 승리!';
-    // return msg;
   }
 
   @action.bound
@@ -138,6 +136,14 @@ class BingoStore {
   @computed
   get getWinner() {
     return this.winner;
+  }
+
+  @computed
+  get getMsg() {
+    if (this.winnerCount) {
+      return this.winnerCount === 1 ? `${this.getWinner}P가 빙고를 완성했습니다` : '무승부입니다.';
+    }
+    return false;
   }
 }
 

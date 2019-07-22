@@ -8,7 +8,7 @@ const BingoBoard = ({ data, player, handleClick, bingos, handleEnd }) => {
 
   const bingoList = bingos.map((bingo, i) => {
     return (
-      <div className="bingo-list" key={i}>
+      <div key={i}>
         {bingo.map((b, i) => (
           <div key={i}>{b.num}</div>
         ))}
@@ -37,7 +37,8 @@ const BingoBoard = ({ data, player, handleClick, bingos, handleEnd }) => {
           );
         })}
       </div>
-      {bingoList}
+      <div className="bingo-score">내가 맞춘 빙고</div>
+      <div className="bingo-list">{bingoList}</div>
     </div>
   );
 };
