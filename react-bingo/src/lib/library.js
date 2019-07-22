@@ -1,3 +1,5 @@
+import { toJS } from 'mobx';
+
 const initialize = () => {
   let data = new Array(5);
   for (let i = 0; i < data.length; i++) {
@@ -53,14 +55,17 @@ const columnCheck = (board, num) => {
 const rowCheck = (board, num) => {
   const columnNum = findIdx(board, num).column;
   let isBingo = true;
+  let rowData = [];
+
   board.forEach(el => {
     if (el[columnNum].isChecked === false) {
       isBingo = false;
       return;
     }
+    rowData.push(el[columnNum]);
   });
 
-  return isBingo;
+  return isBingo ? rowData : false;
 };
 
 const diagonalCheck = (board, num) => {
@@ -76,12 +81,6 @@ const diagonalCheck = (board, num) => {
     }
   });
 
-  // for (let i = 0; i < board.length; i++) {
-  //   if (board[i][i].isChecked === false) {
-  //     isBingo = false;
-  //     return;
-  //   }
-  // }
   return isBingo;
 };
 

@@ -97,9 +97,9 @@ class BingoStore {
     if (library.columnCheck(this.array2, num))
       this.bingo2.push(library.columnCheck(this.array2, num));
 
-    if (library.rowCheck(this.array1, num)) this.bingo1.push('123');
+    if (library.rowCheck(this.array1, num)) this.bingo1.push(library.rowCheck(this.array1, num));
 
-    if (library.rowCheck(this.array2, num)) this.bingo2.push('123');
+    if (library.rowCheck(this.array2, num)) this.bingo2.push(library.rowCheck(this.array2, num));
 
     if (library.diagonalCheck(this.array1, num)) this.bingo1.push('123');
 
