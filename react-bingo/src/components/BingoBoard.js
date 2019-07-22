@@ -1,7 +1,7 @@
 import React from 'react';
 import './BingoBoard.scss';
 
-const BingoBoard = ({ data, handleClick }) => {
+const BingoBoard = ({ data, player, handleClick }) => {
   console.log(data);
   return (
     <div className="bingo-board">
@@ -14,7 +14,9 @@ const BingoBoard = ({ data, handleClick }) => {
                 <div
                   className={`bingo-board-item ${d.isChecked && 'check'}`}
                   key={i}
-                  onClick={handleClick}
+                  onClick={e => {
+                    handleClick(e, player);
+                  }}
                 >
                   {d.num}
                 </div>

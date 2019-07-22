@@ -25,11 +25,24 @@ class BingoStore {
 
   @action.bound
   choose(player, num) {
-    const array = observable.array(this.array1);
-    const idx = this.findIdx(player, num);
-    console.log(idx);
-    array[idx.row][idx.column].isChecked = true;
-    this.array1 = array;
+    let array = [];
+    let idx = -1;
+    switch (player) {
+      case 1:
+        array = observable.array(this.array1);
+        idx = this.findIdx(player, num);
+        array[idx.row][idx.column].isChecked = true;
+        this.array1 = array;
+        break;
+      case 2:
+        array = observable.array(this.array2);
+        idx = this.findIdx(player, num);
+        array[idx.row][idx.column].isChecked = true;
+        this.array2 = array;
+        break;
+      default:
+        break;
+    }
   }
 
   arrays() {
@@ -53,17 +66,34 @@ class BingoStore {
 
   findIdx(player, num) {
     let idx;
-    this.array1.forEach((data, i) => {
-      data.forEach((d, j) => {
-        if (d.num == num) {
-          idx = {
-            column: i,
-            row: j
-          };
-        }
-      });
-    });
-    return idx;
+    switch (player) {
+      case 1:
+        this.array1.forEach((data, i) => {
+          data.forEach((d, j) => {
+            if (d.num == num) {
+              idx = {
+                row: i,
+                column: j
+              };
+            }
+          });
+        });
+        return idx;
+      case 2:
+        this.array2.forEach((data, i) => {
+          data.forEach((d, j) => {
+            if (d.num == num) {
+              idx = {
+                row: i,
+                column: j
+              };
+            }
+          });
+        });
+        return idx;
+      default:
+        break;
+    }
   }
 }
 

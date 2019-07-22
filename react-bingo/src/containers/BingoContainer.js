@@ -10,8 +10,12 @@ import './BingoContainer.scss';
 class BingoContainer extends React.Component {
   componentDidMount() {}
 
-  handleClick = e => {
+  handleClick = (e, player) => {
     const { bingo } = this.props;
+    if (player !== bingo.player) {
+      alert('Not your turn!!!');
+      return;
+    }
     bingo.choose(bingo.player, e.target.innerHTML);
     bingo.switchPlayer();
   };
@@ -22,8 +26,8 @@ class BingoContainer extends React.Component {
     return (
       <div className="bingo-container">
         <div className="bingo-container-board">
-          <BingoBoard data={bingo.array1} handleClick={this.handleClick} />
-          <BingoBoard data={bingo.array2} handleClick={this.handleClick} />
+          <BingoBoard player={1} data={bingo.array1} handleClick={this.handleClick} />
+          <BingoBoard player={2} data={bingo.array2} handleClick={this.handleClick} />
         </div>
       </div>
     );
