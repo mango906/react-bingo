@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, toJS } from 'mobx';
 
 class BingoStore {
   @observable
@@ -8,6 +8,8 @@ class BingoStore {
 
   @observable
   player = 1;
+
+  isStarted = false;
 
   numberData = [];
 
@@ -45,6 +47,14 @@ class BingoStore {
       array2[idx.row][idx.column].isChecked = true;
       this.array2 = array2;
     }
+
+    console.log('column array1', this.columnCheck(this.array1, num));
+
+    console.log('column array2', this.columnCheck(this.array2, num));
+
+    console.log('row array1', this.rowCheck(this.array1, num));
+
+    console.log('row array2', this.rowCheck(this.array2, num));
   }
 
   @action.bound
@@ -52,6 +62,8 @@ class BingoStore {
     this.numberSet(this.array1, 1);
 
     this.numberSet(this.array2, 2);
+
+    this.isStarted = true;
   }
 
   initialize() {
@@ -116,6 +128,32 @@ class BingoStore {
       this.array2 = array;
     }
   }
+
+  columnCheck = (board, num) => {
+    const rowNum = this.findIdx(board, num).row;
+    let isBingo = true;
+    board[rowNum].forEach(el => {
+      if (el.isChecked === false) {
+        isBingo = false;
+        return;
+      }
+    });
+    return isBingo;
+  };
+
+  rowCheck = (board, num) => {
+    const columnNum = this.findIdx(board, num).column;
+    let isBingo = true;
+    board.forEach(el => {
+      if (el[columnNum].isChecked === false) {
+        isBingo = false;
+        return;
+      }
+    });
+    return isBingo;
+  };
+
+  diagonalCheck = () => {};
 }
 
 export default BingoStore;

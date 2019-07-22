@@ -2,7 +2,6 @@ import React from 'react';
 import './BingoBoard.scss';
 
 const BingoBoard = ({ data, player, handleClick }) => {
-  console.log(data);
   return (
     <div className="bingo-board">
       {data.map((d, i) => {

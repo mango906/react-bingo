@@ -12,8 +12,12 @@ class BingoContainer extends React.Component {
 
   handleClick = (e, player) => {
     const { bingo } = this.props;
+    if (!bingo.isStarted) {
+      return;
+    }
+
     if (player !== bingo.player) {
-      alert('Not your turn!!!');
+      alert('잘못된 차레입니다');
       return;
     }
     bingo.choose(e.target.innerHTML);
