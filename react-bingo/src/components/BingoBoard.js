@@ -2,7 +2,11 @@ import React from 'react';
 import './BingoBoard.scss';
 import { toJS } from 'mobx';
 
-const BingoBoard = ({ data, player, handleClick, bingos }) => {
+const BingoBoard = ({ data, player, handleClick, bingos, handleEnd }) => {
+  if (bingos.length === 5) {
+    handleEnd(player);
+  }
+
   const bingoList = bingos.map(bingo => {
     return (
       <div className="bingo-list">

@@ -90,7 +90,7 @@ class BingoStore {
   }
 
   @action.bound
-  bingoCheck = num => {
+  bingoCheck(num) {
     if (library.columnCheck(this.array1, num))
       this.bingo1.push(library.columnCheck(this.array1, num));
 
@@ -101,10 +101,18 @@ class BingoStore {
 
     if (library.rowCheck(this.array2, num)) this.bingo2.push(library.rowCheck(this.array2, num));
 
-    if (library.diagonalCheck(this.array1, num)) this.bingo1.push('123');
+    if (library.diagonalCheck(this.array1, num))
+      this.bingo1.push(library.diagonalCheck(this.array1, num));
 
-    if (library.diagonalCheck(this.array2, num)) this.bingo2.push('123');
-  };
+    if (library.diagonalCheck(this.array2, num))
+      this.bingo2.push(library.diagonalCheck(this.array2, num));
+  }
+
+  @action.bound
+  gameEnd(player) {
+    let msg = player === 1 ? 'player1 승리!' : 'player2 승리!';
+    return msg;
+  }
 }
 
 export default BingoStore;

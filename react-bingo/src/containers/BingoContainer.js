@@ -29,6 +29,11 @@ class BingoContainer extends React.Component {
     bingo.gameStart();
   };
 
+  handleEnd = player => {
+    const { bingo } = this.props;
+    alert(bingo.gameEnd(player));
+  };
+
   render() {
     const { bingo } = this.props;
 
@@ -39,14 +44,16 @@ class BingoContainer extends React.Component {
           <BingoBoard
             player={1}
             data={bingo.array1}
-            handleClick={this.handleClick}
             bingos={bingo.bingo1}
+            handleClick={this.handleClick}
+            handleEnd={this.handleEnd}
           />
           <BingoBoard
             player={2}
             data={bingo.array2}
-            handleClick={this.handleClick}
             bingos={bingo.bingo2}
+            handleClick={this.handleClick}
+            handleEnd={this.handleEnd}
           />
         </div>
       </div>

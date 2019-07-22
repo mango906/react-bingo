@@ -71,6 +71,7 @@ const rowCheck = (board, num) => {
 const diagonalCheck = (board, num) => {
   const location = findIdx(board, num);
   let isBingo = true;
+  let diagonalData = [];
 
   if (location.row !== location.column) return;
 
@@ -79,9 +80,10 @@ const diagonalCheck = (board, num) => {
       isBingo = false;
       return;
     }
+    diagonalData.push(board[i][i]);
   });
 
-  return isBingo;
+  return isBingo ? diagonalData : false;
 };
 
 export default {
