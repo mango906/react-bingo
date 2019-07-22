@@ -9,7 +9,6 @@ const BingoBoard = ({ data, player, handleClick }) => {
         return (
           <div key={i}>
             {d.map((d, i) => {
-              console.log(d.isChecked);
               return (
                 <div
                   className={`bingo-board-item ${d.isChecked && 'check'}`}

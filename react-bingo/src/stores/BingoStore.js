@@ -2,9 +2,9 @@ import { observable, action, computed } from 'mobx';
 
 class BingoStore {
   @observable
-  array1 = this.arrays();
+  array1 = this.initialize();
   @observable
-  array2 = this.arrays();
+  array2 = this.initialize();
 
   @observable
   player = 1;
@@ -43,6 +43,26 @@ class BingoStore {
       default:
         break;
     }
+  }
+
+  @action.bound
+  gameStart() {
+    this.numberSet(this.array1, 1);
+
+    this.numberSet(this.array2, 2);
+  }
+
+  initialize() {
+    let data = new Array(5);
+    for (let i = 0; i < data.length; i++) {
+      data[i] = new Array(5);
+      for (let j = 0; j < data[i].length; j++) {
+        data[i][j] = {
+          isChecked: false
+        };
+      }
+    }
+    return data;
   }
 
   arrays() {
@@ -93,6 +113,23 @@ class BingoStore {
         return idx;
       default:
         break;
+    }
+  }
+
+  numberSet(board, boardIdx) {
+    let array = observable.array(board);
+    for (let i = 0; i < array.length; i++) {
+      for (let j = 0; j < array[i].length; j++) {
+        array[i][j] = {
+          num: this.randoms(),
+          isChecked: false
+        };
+      }
+    }
+    if (boardIdx === 1) {
+      this.array1 = array;
+    } else {
+      this.array2 = array;
     }
   }
 }
