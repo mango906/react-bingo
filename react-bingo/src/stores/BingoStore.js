@@ -101,11 +101,17 @@ class BingoStore {
 
     if (library.rowCheck(this.array2, num)) this.bingo2.push(library.rowCheck(this.array2, num));
 
-    if (library.diagonalCheck(this.array1, num))
-      this.bingo1.push(library.diagonalCheck(this.array1, num));
+    if (library.rightDiagonalCheck(this.array1, num))
+      this.bingo1.push(library.rightDiagonalCheck(this.array1, num));
 
-    if (library.diagonalCheck(this.array2, num))
-      this.bingo2.push(library.diagonalCheck(this.array2, num));
+    if (library.rightDiagonalCheck(this.array2, num))
+      this.bingo2.push(library.rightDiagonalCheck(this.array2, num));
+
+    if (library.leftDiagonalCheck(this.array1, num))
+      this.bingo1.push(library.leftDiagonalCheck(this.array1, num));
+
+    if (library.leftDiagonalCheck(this.array2, num))
+      this.bingo2.push(library.leftDiagonalCheck(this.array2, num));
   }
 
   @action.bound

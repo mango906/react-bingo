@@ -67,20 +67,46 @@ const rowCheck = (board, num) => {
 
   return isBingo ? rowData : false;
 };
-
-const diagonalCheck = (board, num) => {
+const leftDiagonalCheck = (board, num) => {
   const location = findIdx(board, num);
+
   let isBingo = true;
   let diagonalData = [];
 
-  if (location.row !== location.column) return;
+  if (location.row + location.column !== board.length - 1) return;
 
   board.forEach((el, i) => {
-    if (board[i][i].isChecked === false) {
-      isBingo = false;
-      return;
-    }
-    diagonalData.push(board[i][i]);
+    el.forEach((e, j) => {
+      if (i + j !== board.length - 1) return;
+
+      if (board[i][j].isChecked === false) {
+        isBingo = false;
+        return;
+      }
+      diagonalData.push(board[i][j]);
+    });
+  });
+  return isBingo ? diagonalData : false;
+};
+
+const rightDiagonalCheck = (board, num) => {
+  const location = findIdx(board, num);
+
+  if (location.row !== location.column) return;
+
+  let isBingo = true;
+  let diagonalData = [];
+
+  board.forEach((el, i) => {
+    el.forEach((e, j) => {
+      if (i !== j) return;
+
+      if (board[i][j].isChecked === false) {
+        isBingo = false;
+        return;
+      }
+      diagonalData.push(board[i][j]);
+    });
   });
 
   return isBingo ? diagonalData : false;
@@ -92,5 +118,6 @@ export default {
   findIdx: findIdx,
   columnCheck: columnCheck,
   rowCheck: rowCheck,
-  diagonalCheck: diagonalCheck
+  leftDiagonalCheck: leftDiagonalCheck,
+  rightDiagonalCheck: rightDiagonalCheck
 };
