@@ -9,9 +9,10 @@ const BingoBoard = ({ data, handleClick }) => {
         return (
           <div key={i}>
             {d.map((d, i) => {
+              console.log(d.isChecked);
               return (
                 <div
-                  className={`bingo-board-item ${data.isChecked && 'check'}`}
+                  className={`bingo-board-item ${d.isChecked && 'check'}`}
                   key={i}
                   onClick={handleClick}
                 >

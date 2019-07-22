@@ -19,13 +19,17 @@ class BingoStore {
         this.player = 1;
         break;
       default:
-        this.player = 1; // Default Player
+        break;
     }
   }
 
   @action.bound
   choose(player, num) {
-    console.log(player);
+    const array = observable.array(this.array1);
+    const idx = this.findIdx(player, num);
+    console.log(idx);
+    array[idx.row][idx.column].isChecked = true;
+    this.array1 = array;
   }
 
   arrays() {
@@ -52,7 +56,10 @@ class BingoStore {
     this.array1.forEach((data, i) => {
       data.forEach((d, j) => {
         if (d.num == num) {
-          idx = [i, j];
+          idx = {
+            column: i,
+            row: j
+          };
         }
       });
     });
