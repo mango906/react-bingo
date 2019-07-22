@@ -34,7 +34,7 @@ class BingoContainer extends React.Component {
     bingo.gameEnd(player);
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     const { bingo } = this.props;
 
     if (bingo.getMsg) {

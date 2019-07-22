@@ -26,15 +26,6 @@ const BingoBoard = ({ data, player, handleClick, bingos, handleEnd }) => {
             <div key={i}>
               {d.map((d, i) => (
                 <BingoBoardItem key={i} data={d} player={player} handleClick={handleClick} />
-                // <div
-                //   className={`bingo-board-item ${d && d.isChecked && 'check'}`}
-                //   key={i}
-                //   onClick={e => {
-                //     d && !d.isChecked && handleClick(e, player);
-                //   }}
-                // >
-                //   {d && d.num}
-                // </div>
               ))}
             </div>
           );

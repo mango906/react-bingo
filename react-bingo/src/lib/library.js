@@ -11,7 +11,7 @@ const shuffle = () => {
   for (let i = 1; i <= 25; i++) numberData.push(i); // numberData initialize
 
   numberData.sort(() => {
-    return 0.5 - Math.random();
+    return 0.5 - Math.random(); // array shuffle
   });
 
   return numberData;
