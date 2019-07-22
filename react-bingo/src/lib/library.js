@@ -2,11 +2,6 @@ const initialize = () => {
   let data = new Array(5);
   for (let i = 0; i < data.length; i++) {
     data[i] = new Array(5);
-    for (let j = 0; j < data[i].length; j++) {
-      data[i][j] = {
-        isChecked: false
-      };
-    }
   }
   return data;
 };
@@ -42,7 +37,7 @@ const columnCheck = (board, num) => {
   let isBingo = true;
 
   board[rowPos].forEach(el => {
-    if (el.isChecked === false) {
+    if (!el.isChecked) {
       isBingo = false;
       return;
     }
@@ -57,7 +52,7 @@ const rowCheck = (board, num) => {
   let rowData = [];
 
   board.forEach(el => {
-    if (el[columnPos].isChecked === false) {
+    if (!el[columnPos].isChecked) {
       isBingo = false;
       return;
     }
@@ -78,10 +73,11 @@ const leftDiagonalCheck = (board, num) => {
     el.forEach((e, j) => {
       if (i + j !== board.length - 1) return;
 
-      if (board[i][j].isChecked === false) {
+      if (!board[i][j].isChecked) {
         isBingo = false;
         return;
       }
+
       diagonalData.push(board[i][j]);
     });
   });
@@ -100,7 +96,7 @@ const rightDiagonalCheck = (board, num) => {
     el.forEach((e, j) => {
       if (i !== j) return;
 
-      if (board[i][j].isChecked === false) {
+      if (!board[i][j].isChecked) {
         isBingo = false;
         return;
       }

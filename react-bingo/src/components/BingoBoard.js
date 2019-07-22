@@ -24,13 +24,13 @@ const BingoBoard = ({ data, player, handleClick, bingos, handleEnd }) => {
             <div key={i}>
               {d.map((d, i) => (
                 <div
-                  className={`bingo-board-item ${d.isChecked && 'check'}`}
+                  className={`bingo-board-item ${d && d.isChecked && 'check'}`}
                   key={i}
                   onClick={e => {
-                    !d.isChecked && handleClick(e, player);
+                    d && !d.isChecked && handleClick(e, player);
                   }}
                 >
-                  {d.num}
+                  {d && d.num}
                 </div>
               ))}
             </div>

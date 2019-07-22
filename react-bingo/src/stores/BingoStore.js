@@ -9,6 +9,7 @@ class BingoStore {
 
   @observable
   bingo1 = [];
+
   @observable
   bingo2 = [];
 
@@ -19,6 +20,8 @@ class BingoStore {
   isStarted = false;
 
   numberData = [];
+
+  winner = [];
 
   setNumberData(numberData) {
     this.numberData = numberData;
@@ -82,27 +85,29 @@ class BingoStore {
 
   @action.bound
   bingoCheck(num) {
-    if (library.columnCheck(this.array1, num))
-      this.bingo1.push(library.columnCheck(this.array1, num));
+    const columnChk1 = library.columnCheck(this.array1, num);
+    if (columnChk1) this.bingo1.push(columnChk1);
 
-    if (library.columnCheck(this.array2, num))
-      this.bingo2.push(library.columnCheck(this.array2, num));
+    const columnChk2 = library.columnCheck(this.array2, num);
+    if (columnChk2) this.bingo2.push(columnChk2);
 
-    if (library.rowCheck(this.array1, num)) this.bingo1.push(library.rowCheck(this.array1, num));
+    const rowChk1 = library.rowCheck(this.array1, num);
+    if (rowChk1) this.bingo1.push(rowChk1);
 
-    if (library.rowCheck(this.array2, num)) this.bingo2.push(library.rowCheck(this.array2, num));
+    const rowChk2 = library.rowCheck(this.array2, num);
+    if (rowChk2) this.bingo2.push(rowChk2);
 
-    if (library.rightDiagonalCheck(this.array1, num))
-      this.bingo1.push(library.rightDiagonalCheck(this.array1, num));
+    const leftDgChk1 = library.leftDiagonalCheck(this.array1, num);
+    if (leftDgChk1) this.bingo1.push(leftDgChk1);
 
-    if (library.rightDiagonalCheck(this.array2, num))
-      this.bingo2.push(library.rightDiagonalCheck(this.array2, num));
+    const leftDgChk2 = library.leftDiagonalCheck(this.array2, num);
+    if (leftDgChk2) this.bingo2.push(leftDgChk2);
 
-    if (library.leftDiagonalCheck(this.array1, num))
-      this.bingo1.push(library.leftDiagonalCheck(this.array1, num));
+    const rightDgChk1 = library.rightDiagonalCheck(this.array1, num);
+    if (rightDgChk1) this.bingo1.push(rightDgChk1);
 
-    if (library.leftDiagonalCheck(this.array2, num))
-      this.bingo2.push(library.leftDiagonalCheck(this.array2, num));
+    const rightDgChk2 = library.rightDiagonalCheck(this.array2, num);
+    if (rightDgChk2) this.bingo2.push(rightDgChk2);
   }
 
   @action.bound
