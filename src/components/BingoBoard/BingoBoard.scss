@@ -1,0 +1,34 @@
+.bingo-board {
+  &-items {
+    display: flex;
+  }
+}
+
+.check {
+  background: #f6d55c;
+  color: #fff;
+  cursor: default;
+}
+
+.bingo-score {
+  text-align: center;
+  margin-top: 20px;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 5px 0px;
+  background-color: #f6d55c;
+}
+
+.bingo-list {
+  border: 1px solid #f6d55c;
+  & > div {
+    display: flex;
+    width: 100%;
+
+    & > div {
+      width: 20%;
+      text-align: center;
+      padding: 10px 0px;
+    }
+  }
+}
